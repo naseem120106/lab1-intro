@@ -12,11 +12,16 @@ public class PlayerController : MonoBehaviour
     private int numPickups = 6;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI winText;
+    public TextMeshProUGUI playerPositionText;
+    public TextMeshProUGUI playerVelocityText;
+    private Vector3 lastPosition;
+
     void Start()
     {
         count = 0;
         winText.text = "";
         SetCountText();
+        lastPosition = transform.position;
     }
     void OnMove(InputValue value)
     {
@@ -47,5 +52,13 @@ public class PlayerController : MonoBehaviour
         {
             winText.text = "You win!";
         }
+    }
+
+    void Update()
+    {
+        Vector3 v = (transform.position - lastPosition) / Time.deltaTime;
+        lastPosition = transform.position;
+        playerPositionText.text = "Pos: " + transform.position.ToString("0.00");
+        playerVelocityText.text = "Speed: " + v.magnitude.ToString("0.00");
     }
 }
