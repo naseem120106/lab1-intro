@@ -42,7 +42,10 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveValue.x, 0.0f, moveValue.y);
 
         GetComponent<Rigidbody>().AddForce(movement * speed * Time.fixedDeltaTime);
-
+        Vector3 v = (transform.position - lastPosition) / Time.fixedDeltaTime;
+        lastPosition = transform.position;
+        playerVelocityText.text = "Speed: " + v.magnitude.ToString("0.00");
+        playerPositionText.text = "Pos: " + transform.position.ToString("0.00");
     }
 
     private void SetCountText()
@@ -56,9 +59,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Vector3 v = (transform.position - lastPosition) / Time.deltaTime;
-        lastPosition = transform.position;
-        playerPositionText.text = "Pos: " + transform.position.ToString("0.00");
-        playerVelocityText.text = "Speed: " + v.magnitude.ToString("0.00");
+
     }
 }
